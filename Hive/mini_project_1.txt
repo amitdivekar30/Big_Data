@@ -31,7 +31,6 @@ Ans:
         fields terminated by ','
         ;
 
-
         create table agent_performance
         (
         S_no int,
