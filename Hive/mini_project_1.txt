@@ -1211,19 +1211,121 @@ Ans:
 15. Total contribution hour for each and every agents weekly basis 
 Ans:
       Query:
+      with tab1 as (select weekofyear(date) as week, agent, from_unixtime(unix_timestamp(duration, 'yyyy-MM-dd HH:mm:ss'), 'HH:mm:ss') as res_time from agent_loging_report) 
+        select agent, week, from_unixtime(cast(sum(unix_timestamp(res_time,'HH:mm:ss'))as bigint),'HH:mm:ss') as total_contribution_hour from tab1 group by agent, week;
+
       
       Result:
+      agent   week    total_contribution_hour
+        Aditya Shinde   30      00:02:10
+        Aditya_iot      29      22:05:43
+        Aditya_iot      30      01:38:09
+        Amersh  30      03:03:50
+        Ameya Jain      29      00:04:59
+        Ameya Jain      30      09:59:33
+        Ankitjha        30      02:16:01
+        Anurag Tiwari   29      00:15:52
+        Anurag Tiwari   30      18:30:52
+        Aravind 29      08:14:08
+        Aravind 30      08:03:49
+        Ayushi Mishra   29      01:47:25
+        Ayushi Mishra   30      20:19:53
+        Bharath 29      08:04:15
+        Bharath 30      00:00:21
+        Boktiar Ahmed Bappy     29      01:45:01
+        Boktiar Ahmed Bappy     30      14:31:06
+        Chaitra K Hiremath      29      10:14:05
+        Chaitra K Hiremath      30      16:05:27
+        Deepranjan Gupta        29      08:59:47
+        Deepranjan Gupta        30      17:16:44
+        Dibyanshu       29      11:44:38
+        Dibyanshu       30      08:51:07
+        Harikrishnan Shaji      29      13:26:18
+        Harikrishnan Shaji      30      16:16:35
+        Hrisikesh Neogi 29      10:53:29
+        Hrisikesh Neogi 30      14:40:38
+        Hyder Abbas     29      00:20:10
+        Hyder Abbas     30      00:03:07
+        Ineuron Intelligence    29      01:26:55
+        Ishawant Kumar  29      01:43:15
+        Ishawant Kumar  30      18:03:29
+        Jawala Prakash  29      16:20:24
+        Jawala Prakash  30      22:03:44
+        Jaydeep Dixit   29      09:54:52
+        Jaydeep Dixit   30      01:55:34
+        Khushboo Priya  29      05:42:57
+        Khushboo Priya  30      21:50:34
+        Madhulika G     29      01:51:03
+        Madhulika G     30      20:12:34
+        Mahesh Sarade   29      01:28:59
+        Mahesh Sarade   30      01:26:20
+        Maitry  29      00:39:28
+        Maitry  30      06:17:14
+        Manjunatha A    29      10:21:04
+        Manjunatha A    30      06:55:25
+        Mithun S        29      09:22:47
+        Mithun S        30      11:47:38
+        Mukesh  30      00:54:18
+        Muskan Garg     29      03:19:07
+        Muskan Garg     30      22:01:01
+        Nandani Gupta   29      17:20:02
+        Nandani Gupta   30      22:50:18
+        Nishtha Jain    29      06:06:57
+        Nishtha Jain    30      21:44:13
+        Nitin M 29      00:47:56
+        Prabir Kumar Satapathy  29      01:31:28
+        Prabir Kumar Satapathy  30      07:51:10
+        Prateek _iot    29      23:16:11
+        Prateek _iot    30      19:08:54
+        Prerna Singh    29      10:31:03
+        Prerna Singh    30      19:11:53
+        Rishav Dash     29      18:53:38
+        Rishav Dash     30      06:52:54
+        Saikumarreddy N 29      16:58:50
+        Saikumarreddy N 30      18:09:25
+        Sanjeev Kumar   29      03:21:39
+        Sanjeev Kumar   30      17:19:35
+        Saurabh Shukla  29      16:39:47
+        Shiva Srivastava        29      09:54:22
+        Shiva Srivastava        30      13:05:17
+        Shivan K        29      08:42:50
+        Shivan K        30      11:23:18
+        Shivananda Sonwane      29      04:50:03
+        Shivananda Sonwane      30      04:27:13
+        Shubham Sharma  29      06:30:37
+        Shubham Sharma  30      23:17:17
+        Sowmiya Sivakumar       29      17:03:57
+        Sowmiya Sivakumar       30      11:41:18
+        Sudhanshu Kumar 29      08:27:17
+        Sudhanshu Kumar 30      13:46:35
+        Suraj S Bilgi   30      20:33:33
+        Swati   29      18:51:31
+        Swati   30      06:08:33
+        Tarun   26      10:08:20
+        Wasim   29      11:37:32
+        Wasim   30      12:33:13
+        Zeeshan 29      16:25:39
+        Zeeshan 30      00:39:40
+
 
 16. Perform inner join, left join and right join based on the agent column and after joining the table export that data into your local system.
 Ans:
       Query:
+      INNER JOIN
+      SELECT * FROM agent_loging_report u INNER JOIN agent_performance_csv l ON u.agent = l.agent;
       
-      Result:
+      LEFT JOIN:
+        SELECT * FROM agent_loging_report u LEFT JOIN agent_performance_csv l ON u.agent = l.agent limit 5;
+        
+      RIGHT JOIN:
+        SELECT * FROM agent_loging_report u RIGHT JOIN agent_performance_csv l ON u.agent = l.agent limit 5;
+
 
 
 
 17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
 Ans:
       Query:
+      
             
       Result:
