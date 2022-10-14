@@ -1326,6 +1326,34 @@ Ans:
 17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
 Ans:
       Query:
-      
-            
-      Result:
+      create table agent_performance_part
+        (
+        S_no int,
+        Date timestamp,
+        Total_chats int,
+        Avg_response_time timestamp,
+        Avg_resolution_time timestamp,
+        Average_Rating float,
+        Total_feedback  int
+        )
+        partitioned by (agent string); 
+
+        insert overwrite table agent_performance_part partition(agent) select s_no, date, total_chats, avg_response_time, avg_resolution_time, average_rating, total_feedback, agent from agent_performance_csv;
+
+        create table agent_performance_buck
+        (
+        S_no int,
+        Date timestamp,
+        Agent string,
+        Total_chats int,
+        Avg_response_time timestamp,
+        Avg_resolution_time timestamp,
+        Average_Rating float,
+        Total_feedback  int
+        )
+        clustered by (agent)                                                                                                                       
+        sorted by (agent)                                                                                                                          
+        into 2 buckets;
+
+        insert overwrite table agent_performance_buck select * from agent_performance_part;
+
